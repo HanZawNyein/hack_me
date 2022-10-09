@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome From FastAPI with CI-CD"}
+    return {"message": "Welcome From FastAPI with CI-CD testing"}
 
 
 @app.get("/english-number/{number}")
