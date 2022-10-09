@@ -6,7 +6,7 @@ name: fastapi-github-actions-test
 on: 
   #Trigger the workflow on a push event to the master branch only
   push: 
-    branches: [master]
+    branches: [main]
 
 #A workflow job running sequentially
 jobs:
@@ -20,10 +20,10 @@ jobs:
         git fetch --prune --unshallow  
 
     #Task for setting up Python 3.8 using actions/setup-python@v2 Github action
-    - name: Set up Python 3.8
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8 # Modify python version HERE
+        python-version: 3.10 # Modify python version HERE
 
     #Task for installing dependencies, multi-line command
     - name: Install dependencies
@@ -52,7 +52,7 @@ jobs:
       env:
         HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      if: github.ref == 'refs/heads/master' && job.status == 'success'
+      if: github.ref == 'refs/heads/main' && job.status == 'success'
       run: |
         git remote add heroku https://heroku:$HEROKU_AUTH_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git 
-        git push heroku HEAD:master -f
+        git push heroku HEAD:main -f
